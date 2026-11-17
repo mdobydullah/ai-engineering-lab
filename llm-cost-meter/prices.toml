@@ -1,0 +1,73 @@
+# USD per 1M tokens, standard tier (no batch, priority, or fast-mode pricing).
+checked = "2026-11-16"
+
+# Sources:
+#   Anthropic: https://platform.claude.com/docs/en/about-claude/pricing
+#   OpenAI:    https://developers.openai.com/api/docs/pricing
+#
+# Fields:
+#   input         price for normal input tokens
+#   cached_input  price for input tokens served from the prompt cache (a cache hit)
+#   output        price for generated tokens
+#   tokenizer     how cost_meter.py counts tokens for this model:
+#                   "anthropic"      -> Anthropic count_tokens endpoint (needs credentials)
+#                   "tiktoken:NAME"  -> local tiktoken encoding NAME
+#   price_valid_up_to (optional)  prompts above this many tokens are billed at a higher rate
+#
+# Not modelled: Anthropic charges extra to WRITE a cache entry (1.25x input for 5 minutes,
+# 2x for 1 hour). The cached column assumes the cache is already warm.
+
+[models."anthropic/claude-fable-5-2"]
+input = 8.00
+cached_input = 0.20
+output = 40.00
+tokenizer = "anthropic"
+
+[models."anthropic/claude-opus-5-5"]
+input = 4.00
+cached_input = 0.20
+output = 20.00
+tokenizer = "anthropic"
+
+[models."anthropic/claude-sonnet-5-5"]
+input = 2.00
+cached_input = 0.10
+output = 10.00
+tokenizer = "anthropic"
+
+[models."anthropic/claude-haiku-5-5"]
+input = 0.10
+cached_input = 0.01
+output = 0.50
+tokenizer = "anthropic"
+price_valid_up_to = 100_000
+
+# tiktoken 0.14 has no mapping for the gpt-6 models, so o200k_base (the newest
+# general encoding it ships) is used. Counts for these rows are an estimate.
+[models."openai/gpt-6-astra"]
+input = 10.00
+cached_input = 1.00
+output = 50.00
+tokenizer = "tiktoken:o200k_base"
+price_valid_up_to = 272_000
+
+[models."openai/gpt-6.1-sol"]
+input = 2.00
+cached_input = 0.10
+output = 10.00
+tokenizer = "tiktoken:o200k_base"
+price_valid_up_to = 272_000
+
+[models."openai/gpt-6.1-terra"]
+input = 1.00
+cached_input = 0.05
+output = 5.00
+tokenizer = "tiktoken:o200k_base"
+price_valid_up_to = 272_000
+
+[models."openai/gpt-6-luna"]
+input = 0.10
+cached_input = 0.01
+output = 0.50
+tokenizer = "tiktoken:o200k_base"
+price_valid_up_to = 272_000
