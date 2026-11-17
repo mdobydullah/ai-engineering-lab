@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.ruff_cache/
+.pytest_cache/
+.DS_Store
+*.pt
+# training text is downloaded, not committed
+next-token-from-scratch/data/*
+!next-token-from-scratch/data/.gitkeep
+!next-token-from-scratch/data/tiny.txt
+# charts from side runs; only loss.png is kept
+next-token-from-scratch/loss-*.png
+.idea/
+posts/

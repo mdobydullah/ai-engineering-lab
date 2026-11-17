@@ -1,0 +1,23 @@
+[project]
+name = "ai-engineering-lab"
+version = "0.1.0"
+description = "Small standalone builds from my AI engineering learning plan"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "tiktoken",
+    "typer",
+    "matplotlib",
+    "anthropic>=2.8.0",
+]
+
+[dependency-groups]
+neural = ["torch"]
+dev = ["ruff", "pytest"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
